@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react"
+import { useEffect, useState } from 'react'
 
 export const isFalsy = (value: any) => {
   return value === 0 ? false: !value

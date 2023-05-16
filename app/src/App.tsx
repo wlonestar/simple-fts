@@ -1,6 +1,5 @@
-import './App.css'
 import {useEffect, useState} from "react";
-import {useDebounce, useMount} from "./utils.ts";
+import {useDebounce} from "./utils.ts";
 import * as qs from "qs"
 
 interface Article {
@@ -69,13 +68,13 @@ function App() {
   const [param, setParam] = useState('')
   const debouncedParam = useDebounce(param, 200)
 
-  useMount(() => {
-    fetch(`${apiUrl}/article/`).then(async response => {
-      if (response.ok) {
-        setArticles(await response.json())
-      }
-    })
-  })
+  // useMount(() => {
+  //   fetch(`${apiUrl}/article/`).then(async response => {
+  //     if (response.ok) {
+  //       setArticles(await response.json())
+  //     }
+  //   })
+  // })
 
   useEffect(() => {
     fetch(`${apiUrl}/article/search?query=${qs.stringify(debouncedParam)}`)

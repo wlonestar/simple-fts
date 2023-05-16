@@ -1,14 +1,11 @@
-import {useEffect, useState} from "react";
-import {useDebounce} from "./utils.ts";
-import * as qs from "qs"
+import { useState } from 'react'
+import { client, useMount } from './utils'
 
 interface Article {
   id: number
   title: string
   content: string
 }
-
-const apiUrl = 'http://localhost:8088'
 
 interface ListProps {
   articles: Article[]
@@ -41,53 +38,53 @@ const List = ({articles}: ListProps) => {
 
 interface SearchProps {
   articles: Article[]
-  param: string
-  setParam: (param: SearchProps['param']) => void
+  setArticles: (articles: SearchProps['articles']) => void
 }
 
-const Search =({param, setParam}: SearchProps) => {
+const Search =({setArticles}: SearchProps) => {
+  const [param, setParam] = useState<string>('')
+
+  const handleClick = () => {
+    client({
+      method: 'GET',
+      url: '/article/search',
+      params: {
+        query: param
+      }
+    }).then((res) => {
+      setArticles(res.data)
+    })
+  }
+
   return (
     <form>
       <input
         type="text"
         value={param}
         onChange={(evt) => {
-          setParam(
-            evt.target.value
-          )
+          setParam(evt.target.value)
         }}
       />
+      <button type="button" onClick={handleClick}>搜索</button>
     </form>
   )
 }
 
 function App() {
+  const [articles, setArticles] = useState<Article[]>([])
 
-  const [articles, setArticles] = useState([])
-
-  const [param, setParam] = useState('')
-  const debouncedParam = useDebounce(param, 200)
-
-  // useMount(() => {
-  //   fetch(`${apiUrl}/article/`).then(async response => {
-  //     if (response.ok) {
-  //       setArticles(await response.json())
-  //     }
-  //   })
-  // })
-
-  useEffect(() => {
-    fetch(`${apiUrl}/article/search?query=${qs.stringify(debouncedParam)}`)
-      .then((async (response) => {
-        if (response.ok) {
-          setArticles(await response.json())
-        }
-      }))
-  }, [debouncedParam])
+  useMount(() => {
+    client({
+      method: 'GET',
+      url: '/article/'
+    }).then((res) => {
+      setArticles(res.data)
+    })
+  })
 
   return (
     <>
-      <Search articles={articles} param={param} setParam={setParam} />
+      <Search articles={articles} setArticles={setArticles} />
       <List articles={articles} />
     </>
   )

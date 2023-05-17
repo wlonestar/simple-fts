@@ -15,6 +15,9 @@ config: update
 # alter user postgres with password '123456';
 env:
 	@sudo apt-get install openjdk-17-jdk -y
+	@curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+	@source ~/.bashrc
+	@nvm install 18.16.0 && nvm install-latest-npm && npm install -g yarn
 
 ext:
 	@cd ~ && \
@@ -36,5 +39,5 @@ run:
 		nohup java -jar ./build/libs/fts-0.0.1.jar > server.log 2>&1 &
 	@cd ./app && \
 		yarn && \
-		nohup yarn dev --host > app.log 2>&1 &
+		nohup yarn dev > app.log 2>&1 &
 	@sudo service nginx restart

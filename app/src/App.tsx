@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { client, useMount } from './utils'
+import { useMount } from './utils'
+import axios from 'axios'
 
 interface Article {
   id: number
@@ -45,13 +46,8 @@ const Search =({setArticles}: SearchProps) => {
   const [param, setParam] = useState<string>('')
 
   const handleClick = () => {
-    client({
-      method: 'GET',
-      url: '/article/search',
-      params: {
-        query: param
-      }
-    }).then((res) => {
+    axios.get(`/api/article/search?query=${param}`)
+    .then((res) => {
       setArticles(res.data)
     })
   }
@@ -74,10 +70,7 @@ function App() {
   const [articles, setArticles] = useState<Article[]>([])
 
   useMount(() => {
-    client({
-      method: 'GET',
-      url: '/article/'
-    }).then((res) => {
+    axios.get('/api/article/').then((res) => {
       setArticles(res.data)
     })
   })

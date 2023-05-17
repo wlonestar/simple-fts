@@ -4,6 +4,7 @@ import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author <a href="mailto:wlonestar@163.com">wjl</a>
@@ -21,7 +22,11 @@ public class ArticleService {
   }
 
   public List<Article> searchByKeyword(String keyword) {
-    return articleRepository.findByKeyword(keyword);
+    if (keyword.trim().isEmpty()) {
+      return articleRepository.findAll();
+    } else {
+      return articleRepository.findByKeyword(keyword);
+    }
   }
 
 }

@@ -36,7 +36,7 @@ public class ArticleController {
    * search articles by keyword
    *
    * @param keyword keyword to match article's title and content
-   * @return lsit of articles
+   * @return list of articles
    */
   @RequestMapping(method = RequestMethod.GET, path = "/search")
   public List<Article> searchByKeyword(@RequestParam(name = "query") String keyword) {

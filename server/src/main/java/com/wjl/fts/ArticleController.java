@@ -16,7 +16,7 @@ import java.util.List;
  * @time 2023/5/17 12:11
  */
 @RestController
-@RequestMapping(path = "/article")
+@RequestMapping(path = "/api/article")
 public class ArticleController {
 
   @Resource

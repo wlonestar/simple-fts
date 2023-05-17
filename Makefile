@@ -15,10 +15,6 @@ config: update
 # alter user postgres with password '123456';
 env:
 	@sudo apt-get install openjdk-17-jdk -y
-	@source ~/.bashrc
-	@nvm install 18.16.0
-	@nvm install-latest-npm
-	@npm install -g yarn
 
 ext:
 	@cd ~ && \
@@ -34,7 +30,7 @@ ext:
 db: ext
 	@sudo -u postgres psql postgres < ./script.sql
 
-run: killall
+run:
 	@cd ./server && \
 		./gradlew bootJar && \
 		nohup java -jar ./build/libs/fts-0.0.1.jar > server.log 2>&1 &
@@ -42,7 +38,3 @@ run: killall
 		yarn && \
 		nohup yarn dev --host > app.log 2>&1 &
 	@sudo service nginx restart
-
-killall:
-	@pkill java
-	@pkill node

@@ -1,3 +1,5 @@
+SHELL := /bin/bash
+
 config:
 	@sudo apt-get install build-essential cmake make g++ gcc gdb -y
 	@sudo apt-get install postgresql-14 postgresql-contrib -y

@@ -1,2 +1,4 @@
 /.vscode
 /.idea
+/app/nohup.out
+/server/nohup.out

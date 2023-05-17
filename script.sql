@@ -30,6 +30,6 @@ create trigger trig_article_insert_update
 insert into article
 values (5, '数据库安全性', '数据库管理员必须确保数据库的安全性，例如设置强密码、访问控制、备份和恢复等。');
 
-select title from article where fts @@ to_tsquery('搜索');
-select title from article where fts @@ to_tsquery('技术 & 数据');
-select title from article where fts @@ to_tsquery('搜索 | 数据 | 处理');
+-- select title from article where fts @@ to_tsquery('搜索');
+-- select title from article where fts @@ to_tsquery('技术 & 数据');
+-- select title from article where fts @@ to_tsquery('搜索 | 数据 | 处理');

@@ -1,5 +1,11 @@
 # simple-fts
 
+A simple full text search implementation using PostgreSQL.
+
+Rear end: Spring Boot 3.x
+
+Front end: React.
+
 ## Usage
 
 1. clone this repository
@@ -33,9 +39,11 @@ make env
 make db
 ```
 
-6. config /etc/nginx/nginx.conf using nginx.conf, replace IP with server ip
+## Deploy
 
-7. run 
+1. config /etc/nginx/nginx.conf using nginx.conf, replace IP with server ip
+
+2. run 
 
 ```bash
 make run
